@@ -11,7 +11,7 @@ This is the script that give us the 5 cities with the most "Breakfast" orders in
 - Frequency = Orders / Users
 - %Users that exceed 3 orders (Users of Frequency >3) / Users
 
-At the bottom, there are some comments provided based on the findings from this script. 
+At the bottom of the query, there are some comments provided based on the findings from this script. 
 Furthermore, some other comments are based on the output from APPENDIX.sql script.
 
 ## `TOP 10 USERS.sql`
