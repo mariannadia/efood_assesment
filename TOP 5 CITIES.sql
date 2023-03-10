@@ -3,14 +3,19 @@ with cities_with_more_than_1000_orders as
 city, 
 count(order_id) as number_of_orders
 FROM efood2022-379810.main_assessment.orders
-group by 1
+group by city
 having count(order_id) > 1000
-order by 2 desc),
+order by count(order_id) desc),
 
 efood_basket as 
-(select city,count(order_id) as total_orders,count(distinct user_id) as total_users, sum(amount)/count(order_id) as efood_basket, count(order_id)/count(distinct user_id) as efood_freq
+(select 
+ city,
+ count(order_id) as total_orders,
+ count(distinct user_id) as total_users, 
+ sum(amount)/count(order_id) as efood_basket, 
+ count(order_id)/count(distinct user_id) as efood_freq
 from efood2022-379810.main_assessment.orders
-group by 1),
+group by city),
 
 breakfast_basket as 
 (select city, 
@@ -20,28 +25,34 @@ sum(amount)/count(order_id) as breakfast_basket,
 count(order_id)/count(distinct user_id) as breakfast_freq
 from efood2022-379810.main_assessment.orders
 where cuisine = 'Breakfast'
-group by 1),
+group by city),
 
 breakfast_users_more_than_3_orders as 
-(select city, count(user_id) as break_usersfreq3
+(select city, 
+ count(user_id) as break_usersfreq3
 from
-(select city, user_id, count(order_id) as breakfast_usersfreq3
+(select city,
+ user_id, 
+ count(order_id) as breakfast_usersfreq3
 from efood2022-379810.main_assessment.orders
 where  cuisine = 'Breakfast'
-  group by 1,2
-  having count(order_id)>3 )
-  group by 1
+group by city,user_id
+having count(order_id)>3 )
+group by city
 ),
 
 total_users_more_than_3_orders as 
-(select city, count(user_id) as total_usersfreq3
+(select city, 
+ count(user_id) as total_usersfreq3
   from
-  (select city, user_id, count(order_id) as total_usersfreq3
+  (select city, 
+   user_id,
+   count(order_id) as total_usersfreq3
 from efood2022-379810.main_assessment.orders
-  group by 1,2
+  group by city,user_id
   having count(order_id)>3 
   )
-  group by 1
+  group by city
 )
 
 select 
