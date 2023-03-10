@@ -23,7 +23,7 @@ from orders_per_user
  
 select a.city,top_10_users, order_top_10/total_orders as percentage_contribution
 from total_city_orders a left join top_10 b on a.city = b.city
-order by top_10/total_orders desc
+order by order_top_10/total_orders desc
 
 
 
